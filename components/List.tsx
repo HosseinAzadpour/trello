@@ -3,48 +3,81 @@ import { Plus } from "lucide-react";
 import { X } from "lucide-react";
 import { useState } from "react";
 import Card from "./Card";
-interface ListProps {
-  title: string;
-}
-const List = ({ title }: ListProps) => {
+import { ListProps } from "@/types/type";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
+import { useBoardStore } from "@/store/store";
+
+const List = ({ list }: ListProps) => {
+  console.log("list", list);
+  const { updateListTitle, addCard } = useBoardStore();
   const [titleUpdate, setTitleUpdate] = useState(false);
-  const [addCard, setAddCard] = useState(false);
+  const [newCard, setNewCard] = useState(false);
+  const [newCardTitle, setNewCardtitle] = useState("");
+  const titleRef = useClickOutside<HTMLDivElement>(() => {
+    setTitleUpdate(false);
+  });
+  const addRef = useClickOutside<HTMLDivElement>(() => {
+    setNewCard(false);
+  });
+  const cardsRef = useAutoScrollLastChild<HTMLDivElement>([list.cards.length]);
   return (
-    <div className='w-2xs h-auto  bg-gray-200 text-gray-900 flex flex-col justify-start items-center gap-4  rounded-sm '>
-      <section className='w-full flex justify-between  p-3 '>
+    <div className='relative w-2xs h-auto max-h-[75vh]   bg-gray-200 text-gray-900 flex flex-col justify-start items-center   rounded-sm '>
+      <section ref={titleRef} className='w-full flex justify-between   p-3 '>
         {titleUpdate ? (
-          <input value={title} />
+          <input
+            autoFocus
+            value={list.title}
+            onChange={(e) => updateListTitle(list.id, e.target.value)}
+          />
         ) : (
-          <p onClick={() => setTitleUpdate(true)}>{title}</p>
+          <p onClick={() => setTitleUpdate(true)}>{list.title}</p>
         )}
         <Ellipsis />
       </section>
-      <section className='w-full px-3 flex flex-col items-center justify-start gap-2'>
-        <Card
-          title='Add Something'
-          comments={[{ author: "d", time: "asdasdsaads", content: "ssss" }]}
-        />
+      <section
+        ref={cardsRef}
+        className='w-full flex-1  overflow-y-auto  px-3 flex flex-col items-start  gap-2 scrollable-vertical'
+      >
+        {list.cards.map((card, i) => {
+          return (
+            <Card
+              key={`card-${list.title}-${i}`}
+              title={card.title}
+              comments={card.comments}
+            />
+          );
+        })}
       </section>
       <section className='w-full '>
-        {addCard ? (
-          <div className='flex flex-wrap items-center p-3 gap-4'>
+        {newCard ? (
+          <div ref={addRef} className='flex flex-wrap items-center p-2 gap-4 '>
             <textarea
+              value={newCardTitle}
+              onChange={(e) => setNewCardtitle(e.target.value)}
               autoFocus
-              className=' resize-none p-3'
+              className='w-full resize-none p-3'
               placeholder='Enter a card title ...'
             />
-            <button className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'>
+            <button
+              onClick={() => {
+                newCardTitle.length > 0 && addCard(list.id, newCardTitle);
+
+                setNewCardtitle("");
+              }}
+              className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'
+            >
               Create Card
             </button>
             <X
               className='hover:text-gray-500 cursor-pointer duration-300'
-              onClick={() => setAddCard(false)}
+              onClick={() => setNewCard(false)}
             />
           </div>
         ) : (
           <div
-            onClick={() => setAddCard(true)}
-            className='w-full flex items-center justify-start p-3 gap-3 hover:bg-gray-400 transition duration-300 cursor-pointer'
+            onClick={() => setNewCard(true)}
+            className='w-full flex items-center justify-start p-2 gap-3 hover:bg-gray-400 rounded-b-sm transition duration-300 cursor-pointer'
           >
             <Plus />
             <p> Add another card</p>
