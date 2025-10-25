@@ -1,5 +1,6 @@
 "use client";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
+
 export default function Home() {
   const scrollRef = useHorizontalScroll();
   return (

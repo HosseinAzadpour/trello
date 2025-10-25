@@ -23,10 +23,19 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
+      "@/app/*": [
+        "./app/*"
+      ],
+      "@/public/*": [
+        "./public/*"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/hooks/*": [
+        "./hooks/*"
       ]
-    }
+    },
   },
   "include": [
     "next-env.d.ts",
