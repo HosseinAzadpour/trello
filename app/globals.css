@@ -32,3 +32,26 @@ textarea {
   border-radius: 4px;
 
 }
+
+.scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(101, 150, 188, 0.538) transparent;
+}
+
+.scrollable::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+
+}
+
+.scrollable::-webkit-scrollbar-track {
+  background: transparent;
+
+
+}
+
+.scrollable::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+}

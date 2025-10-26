@@ -6,9 +6,9 @@ export const useBoardStore = create<BoardState>()(
     (set) => ({
       title: "My Trello Board",
       lists: [
-        { id: crypto.randomUUID(), title: "TODO", cards: [] },
-        { id: crypto.randomUUID(), title: "In Progress", cards: [] },
-        { id: crypto.randomUUID(), title: "Done", cards: [] },
+        { id: "default-1", title: "TODO", cards: [] },
+        { id: "default-2", title: "In Progress", cards: [] },
+        { id: "default-3", title: "Done", cards: [] },
       ],
       setBoardTitle: (newTitle) => set({ title: newTitle }),
       addList: (title) =>
