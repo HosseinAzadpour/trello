@@ -50,6 +50,12 @@ export const useBoardStore = create<BoardState>()(
               : l
           ),
         })),
+      removeAllCard: (listId) =>
+        set((state) => ({
+          lists: state.lists.map((l) =>
+            l.id === listId ? { ...l, cards: [] } : l
+          ),
+        })),
       addComment: (listId, cardId, comment) =>
         set((state) => ({
           lists: state.lists.map((l) =>

@@ -10,9 +10,11 @@ import { useBoardStore } from "@/store/store";
 
 const List = ({ list }: ListProps) => {
   console.log("list", list);
-  const { updateListTitle, addCard } = useBoardStore();
+  const { updateListTitle, addCard, removeList, removeAllCard } =
+    useBoardStore();
   const [titleUpdate, setTitleUpdate] = useState(false);
   const [newCard, setNewCard] = useState(false);
+  const [showOption, setShowOption] = useState(false);
   const [newCardTitle, setNewCardtitle] = useState("");
   const titleRef = useClickOutside<HTMLDivElement>(() => {
     setTitleUpdate(false);
@@ -20,10 +22,16 @@ const List = ({ list }: ListProps) => {
   const addRef = useClickOutside<HTMLDivElement>(() => {
     setNewCard(false);
   });
+  const optionRef = useClickOutside<HTMLDivElement>(() => {
+    setShowOption(false);
+  });
   const cardsRef = useAutoScrollLastChild<HTMLDivElement>([list.cards.length]);
   return (
     <div className='relative w-2xs h-auto max-h-[75vh]   bg-gray-200 text-gray-900 flex flex-col justify-start items-center   rounded-sm '>
-      <section ref={titleRef} className='w-full flex justify-between   p-3 '>
+      <section
+        ref={titleRef}
+        className='relative w-full flex justify-between  p-3 '
+      >
         {titleUpdate ? (
           <input
             autoFocus
@@ -33,7 +41,35 @@ const List = ({ list }: ListProps) => {
         ) : (
           <p onClick={() => setTitleUpdate(true)}>{list.title}</p>
         )}
-        <Ellipsis />
+        <Ellipsis
+          className='cursor-pointer'
+          onClick={() => setShowOption(true)}
+        />
+        {showOption && (
+          <div
+            ref={optionRef}
+            className='absolute left-7/8 top-full w-full z-10 bg-white rounded-sm  shadow-lg shadow-gray-500/50'
+          >
+            <div className='relative w-full flex justify-center border-b border-gray-400 text-gray-400 p-3'>
+              <p>List Actions</p>
+              <X
+                className='absolute right-2 cursor-pointer hover:text-gray-500 duration-300'
+                onClick={() => setShowOption(false)}
+              />
+            </div>
+            <div className='w-full flec flex flex-col justify-start items-start gap-2 p-3 font-bold'>
+              <p className='cursor-pointer' onClick={() => removeList(list.id)}>
+                Delete List
+              </p>
+              <p
+                className='cursor-pointer'
+                onClick={() => removeAllCard(list.id)}
+              >
+                Delete All Cards
+              </p>
+            </div>
+          </div>
+        )}
       </section>
       <section
         ref={cardsRef}
@@ -45,6 +81,8 @@ const List = ({ list }: ListProps) => {
               key={`card-${list.title}-${i}`}
               title={card.title}
               comments={card.comments}
+              listId={list.id}
+              cardId={card.id}
             />
           );
         })}

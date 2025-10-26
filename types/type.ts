@@ -26,6 +26,7 @@ export interface BoardState {
   updateListTitle: (id: string, newTitle: string) => void;
   addCard: (listId: string, title: string) => void;
   removeCard: (listId: string, cardId: string) => void;
+  removeAllCard: (listId: string) => void;
   addComment: (listId: string, cardId: string, comment: CommentType) => void;
 }
 export interface ListProps {
