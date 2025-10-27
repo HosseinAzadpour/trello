@@ -40,6 +40,10 @@ export const useBoardLogic = () => {
       return;
     }
   };
+  const handleAddList = () => {
+    newListTitle.length > 0 && addList(newListTitle);
+    setNewListTitle("");
+  };
   //refs
   const scrollRef = useHorizontalScroll();
   const listRef = useClickOutside<HTMLDivElement>(() => setNewList(false));
@@ -60,5 +64,6 @@ export const useBoardLogic = () => {
     titleRef,
     scrollRef,
     onDragEnd,
+    handleAddList,
   };
 };

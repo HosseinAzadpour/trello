@@ -14,11 +14,12 @@ export default function Board() {
     setNewListTitle,
     newList,
     setNewList,
-    addList,
+
     listRef,
     titleRef,
     scrollRef,
     onDragEnd,
+    handleAddList,
   } = useBoardLogic();
 
   return (
@@ -109,10 +110,7 @@ export default function Board() {
                   />
                   <button
                     className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'
-                    onClick={() => {
-                      newListTitle.length > 0 && addList(newListTitle);
-                      setNewListTitle("");
-                    }}
+                    onClick={handleAddList}
                   >
                     Add list
                   </button>
