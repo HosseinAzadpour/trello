@@ -3,7 +3,7 @@ import { useCallback, useState } from "react";
 import { useBoardStore } from "@/store/store";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
-
+import { useAutoFocusScroll } from "./useAutoFocus";
 export const useListLogic = (listId: string, cardsLength: number) => {
   // Zustand actions
   const updateListTitle = useBoardStore((s) => s.updateListTitle);
@@ -22,6 +22,7 @@ export const useListLogic = (listId: string, cardsLength: number) => {
   const addRef = useClickOutside<HTMLDivElement>(() => setNewCard(false));
   const optionRef = useClickOutside<HTMLDivElement>(() => setShowMore(false));
   const cardsRef = useAutoScrollLastChild<HTMLDivElement>([cardsLength]);
+  const autoFocusRef = useAutoFocusScroll<HTMLTextAreaElement>(newCardTitle);
 
   //handlers
   const handleAddCard = useCallback(() => {
@@ -43,6 +44,7 @@ export const useListLogic = (listId: string, cardsLength: number) => {
     newCardTitle,
     setNewCardtitle,
     titleRef,
+    autoFocusRef,
     addRef,
     optionRef,
     cardsRef,

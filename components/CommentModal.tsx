@@ -8,6 +8,7 @@ const CommentModal = ({
   commentValue,
   setCommentValue,
   modalRef,
+  autoFocusRef,
   commentsRef,
   handleOnClose,
   handleAddComment,
@@ -51,6 +52,7 @@ const CommentModal = ({
         </section>
         <section className='w-full flex flex-col items-end justify-start gap-2'>
           <textarea
+            ref={autoFocusRef}
             value={commentValue}
             onChange={(e) => setCommentValue(e.target.value)}
             className='w-full p-3'

@@ -22,6 +22,7 @@ export interface CommentsModalProps {
   setCommentValue: (value: string) => void;
   modalRef: React.RefObject<HTMLDivElement | null>;
   commentsRef: React.RefObject<HTMLDivElement | null>;
+  autoFocusRef: React.RefObject<HTMLTextAreaElement | null>;
   handleOnClose: () => void;
   handleAddComment: (value: string) => void;
 }

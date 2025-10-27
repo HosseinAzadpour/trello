@@ -1,9 +1,9 @@
 import { useBoardStore } from "@/store/store";
 import { DropResult } from "@hello-pangea/dnd";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
-
+import { useAutoFocusScroll } from "./useAutoFocus";
 export const useBoardLogic = () => {
   // Zustand actions
   const lists = useBoardStore((state) => state.lists);
@@ -45,6 +45,7 @@ export const useBoardLogic = () => {
     setNewListTitle("");
   };
   //refs
+  const autoFocusRef = useAutoFocusScroll<HTMLInputElement>(newListTitle);
   const scrollRef = useHorizontalScroll();
   const listRef = useClickOutside<HTMLDivElement>(() => setNewList(false));
   const titleRef = useClickOutside<HTMLDivElement>(() => setChangeTitle(false));
@@ -61,6 +62,7 @@ export const useBoardLogic = () => {
     setNewList,
     addList,
     listRef,
+    autoFocusRef,
     titleRef,
     scrollRef,
     onDragEnd,

@@ -10,6 +10,7 @@ const Card = ({ title, comments, listId, cardId }: CardProps) => {
     setCommentValue,
     modalRef,
     commentsRef,
+    autoFocusRef,
     handleOnClose,
     handleOnOpen,
     handleAddComment,
@@ -36,6 +37,7 @@ const Card = ({ title, comments, listId, cardId }: CardProps) => {
           commentsRef={commentsRef}
           handleOnClose={handleOnClose}
           handleAddComment={handleAddComment}
+          autoFocusRef={autoFocusRef}
         />
       )}
     </>

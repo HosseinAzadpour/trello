@@ -21,6 +21,7 @@ const List = ({ list }: ListProps) => {
     setNewCardtitle,
     titleRef,
     addRef,
+    autoFocusRef,
     optionRef,
     cardsRef,
     handleAddCard,
@@ -122,6 +123,7 @@ const List = ({ list }: ListProps) => {
         {newCard ? (
           <div ref={addRef} className='flex flex-wrap items-center p-2 gap-4'>
             <textarea
+              ref={autoFocusRef}
               value={newCardTitle}
               onChange={(e) => setNewCardtitle(e.target.value)}
               autoFocus

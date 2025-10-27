@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useBoardStore } from "@/store/store";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
-
+import { useAutoFocusScroll } from "./useAutoFocus";
 export const useCardLogic = (
   listId: string = "0",
   cardId: string = "0",
@@ -37,12 +37,14 @@ export const useCardLogic = (
   // Refs
   const modalRef = useClickOutside<HTMLDivElement>(handleOnClose);
   const commentsRef = useAutoScrollLastChild<HTMLDivElement>([commentsLength]);
+  const autoFocusRef = useAutoFocusScroll<HTMLTextAreaElement>(commentValue);
 
   return {
     setIsModalOpen,
     setCommentValue,
     commentValue,
     modalRef,
+    autoFocusRef,
     commentsRef,
     handleAddComment,
     handleOnClose,

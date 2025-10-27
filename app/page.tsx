@@ -17,6 +17,7 @@ export default function Board() {
     setNewList,
     listRef,
     titleRef,
+    autoFocusRef,
     scrollRef,
     onDragEnd,
     handleAddList,
@@ -107,10 +108,12 @@ export default function Board() {
                   className='flex w-2xs flex-wrap items-center p-3 gap-4 bg-gray-200 rounded-md'
                 >
                   <input
+                    ref={autoFocusRef}
                     autoFocus
                     value={newListTitle}
                     onChange={(e) => setNewListTitle(e.target.value)}
                     className='w-full text-black p-3'
+                    placeholder='New list title...'
                   />
                   <button
                     className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'
