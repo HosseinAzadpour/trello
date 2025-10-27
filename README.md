@@ -80,7 +80,7 @@ CommentModal – Modal for adding or editing comments
 Frontend: Next.js 16, React 19, TypeScript
 UI Styling: TailwindCSS 4
 State Management: Zustand
-Drag & Drop: @dnd-kit (core, sortable, modifiers)
+Drag & Drop: @hello-pangea/dnd (core, sortable, modifiers)
 Icons: lucide-react
 Linting: ESLint with Next.js config
 
@@ -96,3 +96,8 @@ Interactive modals and comment sections
 
 Fully responsive for desktop and mobile
 
+## Improvements
+
+I used @hello-pangea/dnd instead of react-beautiful-dnd since it's a maintained and optimized fork, providing better performance and compatibility with the latest React versions.
+
+Additionally, the board supports horizontal scrolling for easier navigation between lists, improving the overall user experience.
