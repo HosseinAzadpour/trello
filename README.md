@@ -65,6 +65,8 @@ useHorizontalScroll – Enables smooth horizontal scrolling for lists
 
 useAutoScrollLastChild – Automatically scrolls to the latest added card or comment
 
+useAutoFocusScroll- Automatically focus on new inputs and textareas and scroll to give a better view of the card
+
 ## Components
 
 Card – Displays each individual card or task
