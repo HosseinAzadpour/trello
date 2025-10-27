@@ -103,3 +103,5 @@ Fully responsive for desktop and mobile
 I used @hello-pangea/dnd instead of react-beautiful-dnd since it's a maintained and optimized fork, providing better performance and compatibility with the latest React versions.
 
 Additionally, the board supports horizontal scrolling for easier navigation between lists, improving the overall user experience.
+
+Keep new card input value when open another list's add new card section exactly similar to trello app.
