@@ -27,6 +27,7 @@ export const useCardLogic = (
       time: new Date().toLocaleString("en-US"),
       content,
     });
+    setCommentValue("");
   };
   // Refs
   const modalRef = useClickOutside<HTMLDivElement>(handleOnClose);
