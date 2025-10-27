@@ -2,7 +2,7 @@
 import List from "@/components/List";
 import { Plus, X } from "lucide-react";
 import { useBoardLogic } from "@/hooks/useBoardLogic";
-import { useCardLogic } from "@/hooks/useCardLogic";
+import { useBoardStore } from "@/store/store";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 export default function Board() {
   const {
@@ -21,7 +21,8 @@ export default function Board() {
     onDragEnd,
     handleAddList,
   } = useBoardLogic();
-  const { showComments } = useCardLogic();
+  const openModals = useBoardStore((state) => state.openModals);
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <main
@@ -51,7 +52,7 @@ export default function Board() {
         <Droppable
           droppableId='board'
           type='LIST'
-          isDropDisabled={!showComments}
+          isDropDisabled={openModals.length > 0}
           direction='horizontal'
         >
           {(provided) => (
@@ -65,7 +66,7 @@ export default function Board() {
                   key={list.id}
                   draggableId={list.id}
                   index={index}
-                  isDragDisabled={!showComments}
+                  isDragDisabled={openModals.length > 0}
                 >
                   {(provided) => (
                     <div

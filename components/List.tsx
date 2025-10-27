@@ -5,6 +5,7 @@ import Card from "./Card";
 import { ListProps } from "@/types/type";
 import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { useListLogic } from "@/hooks/useListLogic";
+import { useBoardStore } from "@/store/store";
 const List = ({ list }: ListProps) => {
   const {
     updateListTitle,
@@ -24,7 +25,7 @@ const List = ({ list }: ListProps) => {
     cardsRef,
     handleAddCard,
   } = useListLogic(list.id, list.cards.length);
-
+  const openModals = useBoardStore((state) => state.openModals);
   return (
     <div className='relative w-2xs h-auto max-h-[75vh] bg-gray-200 text-gray-900 flex flex-col justify-start items-center rounded-sm'>
       {/* Title */}
@@ -73,7 +74,11 @@ const List = ({ list }: ListProps) => {
       </section>
 
       {/* Cards */}
-      <Droppable droppableId={list.id} type='CARD' isDropDisabled={true}>
+      <Droppable
+        droppableId={list.id}
+        type='CARD'
+        isDropDisabled={openModals.length > 0}
+      >
         {(provided) => (
           <section
             ref={(el) => {
@@ -88,7 +93,7 @@ const List = ({ list }: ListProps) => {
                 key={card.id}
                 draggableId={card.id}
                 index={index}
-                isDragDisabled={true}
+                isDragDisabled={openModals.length > 0}
               >
                 {(provided) => (
                   <div

@@ -11,16 +11,20 @@ export const useCardLogic = (
 ) => {
   // Zustand actions
   const addComment = useBoardStore((state) => state.addComment);
+  const setIsModalOpen = useBoardStore((state) => state.setIsModalOpen);
 
   // Local states
-  const [showComments, setShowComments] = useState(false);
+
   const [commentValue, setCommentValue] = useState("");
 
   //handlers
   const handleOnClose = () => {
-    setShowComments(false);
+    setIsModalOpen(cardId, false);
   };
-  console.log("show", showComments);
+  const handleOnOpen = () => {
+    setIsModalOpen(cardId, true);
+  };
+
   const handleAddComment = (content: string) => {
     addComment(listId, cardId, {
       id: String(Date.now()),
@@ -35,13 +39,13 @@ export const useCardLogic = (
   const commentsRef = useAutoScrollLastChild<HTMLDivElement>([commentsLength]);
 
   return {
-    showComments,
-    setShowComments,
+    setIsModalOpen,
     setCommentValue,
     commentValue,
     modalRef,
     commentsRef,
     handleAddComment,
     handleOnClose,
+    handleOnOpen,
   };
 };

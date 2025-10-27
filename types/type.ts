@@ -36,6 +36,8 @@ export interface ListProps {
 
 export interface BoardState {
   title: string;
+  openModals: string[];
+  setIsModalOpen: (cardId: string, open: boolean) => void;
   lists: ListType[];
   setBoardTitle: (newTitle: string) => void;
   addList: (title: string) => void;

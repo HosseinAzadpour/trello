@@ -10,6 +10,14 @@ export const useBoardStore = create<BoardState>()(
         { id: "default-2", title: "In Progress", cards: [] },
         { id: "default-3", title: "Done", cards: [] },
       ],
+      openModals: [],
+      setIsModalOpen: (cardId, open) => {
+        set((state) => ({
+          openModals: open
+            ? [...state.openModals, cardId]
+            : state.openModals.filter((id) => id !== cardId),
+        }));
+      },
       setBoardTitle: (newTitle) => set({ title: newTitle }),
       addList: (title) =>
         set((state) => ({
