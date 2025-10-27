@@ -1,20 +1,22 @@
 "use client";
-import { useState } from "react";
 import { X } from "lucide-react";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
 import CommentItem from "./CommentItem";
 import { CommentsModalProps } from "@/types/type";
-
+import { useCardLogic } from "@/hooks/useCardLogic";
 const CommentModal = ({
   title,
   comments,
-  onClose,
-  onAddComment,
+  listId,
+  cardId,
 }: CommentsModalProps) => {
-  const [commentValue, setCommentValue] = useState("");
-  const modalRef = useClickOutside<HTMLDivElement>(onClose);
-  const commentsRef = useAutoScrollLastChild<HTMLDivElement>([comments.length]);
+  const {
+    commentValue,
+    setCommentValue,
+    modalRef,
+    commentsRef,
+    handleOnClose,
+    handleAddComment,
+  } = useCardLogic(listId, cardId, comments.length);
 
   return (
     <div className='fixed w-screen h-screen left-0 top-0 flex items-center justify-center z-20 bg-black/50'>
@@ -28,7 +30,7 @@ const CommentModal = ({
           </h5>
           <X
             className='cursor-pointer text-gray-400 size-4 hover:text-black'
-            onClick={onClose}
+            onClick={handleOnClose}
           />
         </section>
         <section
@@ -61,9 +63,7 @@ const CommentModal = ({
             placeholder='Write a comment ...'
           />
           <button
-            onClick={() => {
-              onAddComment(commentValue), setCommentValue("");
-            }}
+            onClick={() => handleAddComment(commentValue)}
             className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'
           >
             Add Comment

@@ -1,13 +1,20 @@
 import { useBoardStore } from "@/store/store";
 import { DropResult } from "@hello-pangea/dnd";
+import { useState } from "react";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 export const useBoardLogic = () => {
+  // Zustand actions
   const lists = useBoardStore((state) => state.lists);
-
   const addList = useBoardStore((state) => state.addList);
   const setBoardTitle = useBoardStore((state) => state.setBoardTitle);
   const title = useBoardStore((state) => state.title);
-
+  //local states
+  const [changeTitle, setChangeTitle] = useState(false);
+  const [newListTitle, setNewListTitle] = useState("");
+  const [newList, setNewList] = useState(false);
+  //handlers
   const onDragEnd = (result: DropResult) => {
     const { source, destination, type } = result;
     if (!destination) return;
@@ -33,6 +40,25 @@ export const useBoardLogic = () => {
       return;
     }
   };
+  //refs
+  const scrollRef = useHorizontalScroll();
+  const listRef = useClickOutside<HTMLDivElement>(() => setNewList(false));
+  const titleRef = useClickOutside<HTMLDivElement>(() => setChangeTitle(false));
 
-  return { lists, title, setBoardTitle, addList, onDragEnd };
+  return {
+    lists,
+    title,
+    changeTitle,
+    setChangeTitle,
+    setBoardTitle,
+    newListTitle,
+    setNewListTitle,
+    newList,
+    setNewList,
+    addList,
+    listRef,
+    titleRef,
+    scrollRef,
+    onDragEnd,
+  };
 };

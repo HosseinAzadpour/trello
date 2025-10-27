@@ -1,25 +1,29 @@
 "use client";
+import React from "react";
 import { Ellipsis, Plus, X } from "lucide-react";
-import { useState } from "react";
 import Card from "./Card";
 import { ListProps } from "@/types/type";
-import { useClickOutside } from "@/hooks/useClickOutside";
-import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
-import { useBoardStore } from "@/store/store";
 import { Droppable, Draggable } from "@hello-pangea/dnd";
+import { useListLogic } from "@/hooks/useListLogic";
 const List = ({ list }: ListProps) => {
-  const { updateListTitle, addCard, removeList, removeAllCard } =
-    useBoardStore();
-
-  const [titleUpdate, setTitleUpdate] = useState(false);
-  const [newCard, setNewCard] = useState(false);
-  const [showMore, setShowMore] = useState(false);
-  const [newCardTitle, setNewCardtitle] = useState("");
-
-  const titleRef = useClickOutside<HTMLDivElement>(() => setTitleUpdate(false));
-  const addRef = useClickOutside<HTMLDivElement>(() => setNewCard(false));
-  const optionRef = useClickOutside<HTMLDivElement>(() => setShowMore(false));
-  const cardsRef = useAutoScrollLastChild<HTMLDivElement>([list.cards.length]);
+  const {
+    updateListTitle,
+    removeList,
+    removeAllCard,
+    titleUpdate,
+    setTitleUpdate,
+    newCard,
+    setNewCard,
+    showMore,
+    setShowMore,
+    newCardTitle,
+    setNewCardtitle,
+    titleRef,
+    addRef,
+    optionRef,
+    cardsRef,
+    handleAddCard,
+  } = useListLogic(list.id, list.cards.length);
 
   return (
     <div className='relative w-2xs h-auto max-h-[75vh] bg-gray-200 text-gray-900 flex flex-col justify-start items-center rounded-sm'>
@@ -115,10 +119,7 @@ const List = ({ list }: ListProps) => {
               placeholder='Enter a card title ...'
             />
             <button
-              onClick={() => {
-                newCardTitle.length > 0 && addCard(list.id, newCardTitle);
-                setNewCardtitle("");
-              }}
+              onClick={handleAddCard}
               className='bg-lime-600 hover:bg-lime-700 text-white py-2 px-3 rounded-md cursor-pointer duration-300'
             >
               Create Card
@@ -142,4 +143,4 @@ const List = ({ list }: ListProps) => {
   );
 };
 
-export default List;
+export default React.memo(List);

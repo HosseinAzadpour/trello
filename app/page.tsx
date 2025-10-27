@@ -1,20 +1,25 @@
 "use client";
-import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 import List from "@/components/List";
-import { useState } from "react";
-import { useClickOutside } from "@/hooks/useClickOutside";
 import { Plus, X } from "lucide-react";
 import { useBoardLogic } from "@/hooks/useBoardLogic";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-
 export default function Board() {
-  const { lists, title, setBoardTitle, addList, onDragEnd } = useBoardLogic();
-  const scrollRef = useHorizontalScroll();
-  const [changeTitle, setChangeTitle] = useState(false);
-  const [newListTitle, setNewListTitle] = useState("");
-  const [newList, setNewList] = useState(false);
-  const titleRef = useClickOutside<HTMLDivElement>(() => setChangeTitle(false));
-  const listRef = useClickOutside<HTMLDivElement>(() => setNewList(false));
+  const {
+    lists,
+    title,
+    changeTitle,
+    setChangeTitle,
+    setBoardTitle,
+    newListTitle,
+    setNewListTitle,
+    newList,
+    setNewList,
+    addList,
+    listRef,
+    titleRef,
+    scrollRef,
+    onDragEnd,
+  } = useBoardLogic();
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>

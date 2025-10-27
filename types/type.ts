@@ -18,8 +18,8 @@ export interface CommentType {
 export interface CommentsModalProps {
   title: string;
   comments: { author: string; time: string; content: string; id: string }[];
-  onClose: () => void;
-  onAddComment: (content: string) => void;
+  listId: string;
+  cardId: string;
 }
 export interface ListType {
   id: string;

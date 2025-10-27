@@ -1,21 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useBoardStore } from "@/store/store";
+import React from "react";
 import CommentModal from "./CommentModal";
 import { CardProps } from "@/types/type";
+import { useCardLogic } from "@/hooks/useCardLogic";
 const Card = ({ title, comments, listId, cardId }: CardProps) => {
-  const [showComments, setShowComments] = useState(false);
-  const addComment = useBoardStore((state) => state.addComment);
+  const { showComments, setShowComments } = useCardLogic(
+    listId,
+    cardId,
+    comments.length
+  );
 
-  const handleAddComment = (content: string) => {
-    addComment(listId, cardId, {
-      id: String(Date.now()),
-      author: "you",
-      time: new Date().toLocaleString("en-US"),
-      content,
-    });
-  };
-  console.log("sss");
   return (
     <>
       <div className='relative w-full bg-white rounded-sm break-all p-4 pb-12 whitespace-pre-line'>
@@ -31,12 +25,12 @@ const Card = ({ title, comments, listId, cardId }: CardProps) => {
         <CommentModal
           title={title}
           comments={comments}
-          onClose={() => setShowComments(false)}
-          onAddComment={handleAddComment}
+          listId={listId}
+          cardId={cardId}
         />
       )}
     </>
   );
 };
 
-export default Card;
+export default React.memo(Card);

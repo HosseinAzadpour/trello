@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import { CommentType } from "@/types/type";
 const CommentItem = ({ author, time, content, id }: CommentType) => {
   return (
@@ -11,4 +12,4 @@ const CommentItem = ({ author, time, content, id }: CommentType) => {
   );
 };
 
-export default CommentItem;
+export default React.memo(CommentItem);
