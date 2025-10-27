@@ -81,7 +81,7 @@ const List = ({ list }: ListProps) => {
               cardsRef.current = el as HTMLDivElement | null;
             }}
             {...provided.droppableProps}
-            className='w-full flex-1 overflow-y-auto px-3 flex flex-col items-start gap-2 scrollable-vertical'
+            className='w-full flex-1 overflow-y-auto p-3  flex flex-col items-start gap-2 scrollable-vertical'
           >
             {list.cards.map((card, index) => (
               <Draggable key={card.id} draggableId={card.id} index={index}>

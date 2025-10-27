@@ -20,6 +20,7 @@ export const useCardLogic = (
   const handleOnClose = () => {
     setShowComments(false);
   };
+  console.log("show", showComments);
   const handleAddComment = (content: string) => {
     addComment(listId, cardId, {
       id: String(Date.now()),

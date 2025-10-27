@@ -17,9 +17,13 @@ export interface CommentType {
 }
 export interface CommentsModalProps {
   title: string;
-  comments: { author: string; time: string; content: string; id: string }[];
-  listId: string;
-  cardId: string;
+  comments: CommentType[];
+  commentValue: string;
+  setCommentValue: (value: string) => void;
+  modalRef: React.RefObject<HTMLDivElement | null>;
+  commentsRef: React.RefObject<HTMLDivElement | null>;
+  handleOnClose: () => void;
+  handleAddComment: (value: string) => void;
 }
 export interface ListType {
   id: string;

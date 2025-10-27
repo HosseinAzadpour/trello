@@ -4,11 +4,16 @@ import CommentModal from "./CommentModal";
 import { CardProps } from "@/types/type";
 import { useCardLogic } from "@/hooks/useCardLogic";
 const Card = ({ title, comments, listId, cardId }: CardProps) => {
-  const { showComments, setShowComments } = useCardLogic(
-    listId,
-    cardId,
-    comments.length
-  );
+  const {
+    showComments,
+    setShowComments,
+    commentValue,
+    setCommentValue,
+    modalRef,
+    commentsRef,
+    handleOnClose,
+    handleAddComment,
+  } = useCardLogic(listId, cardId, comments.length);
 
   return (
     <>
@@ -25,8 +30,12 @@ const Card = ({ title, comments, listId, cardId }: CardProps) => {
         <CommentModal
           title={title}
           comments={comments}
-          listId={listId}
-          cardId={cardId}
+          commentValue={commentValue}
+          setCommentValue={setCommentValue}
+          modalRef={modalRef}
+          commentsRef={commentsRef}
+          handleOnClose={handleOnClose}
+          handleAddComment={handleAddComment}
         />
       )}
     </>

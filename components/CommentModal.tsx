@@ -2,22 +2,16 @@
 import { X } from "lucide-react";
 import CommentItem from "./CommentItem";
 import { CommentsModalProps } from "@/types/type";
-import { useCardLogic } from "@/hooks/useCardLogic";
 const CommentModal = ({
   title,
   comments,
-  listId,
-  cardId,
+  commentValue,
+  setCommentValue,
+  modalRef,
+  commentsRef,
+  handleOnClose,
+  handleAddComment,
 }: CommentsModalProps) => {
-  const {
-    commentValue,
-    setCommentValue,
-    modalRef,
-    commentsRef,
-    handleOnClose,
-    handleAddComment,
-  } = useCardLogic(listId, cardId, comments.length);
-
   return (
     <div className='fixed w-screen h-screen left-0 top-0 flex items-center justify-center z-20 bg-black/50'>
       <div
