@@ -73,7 +73,7 @@ const List = ({ list }: ListProps) => {
       </section>
 
       {/* Cards */}
-      <Droppable droppableId={list.id} type='CARD'>
+      <Droppable droppableId={list.id} type='CARD' isDropDisabled={true}>
         {(provided) => (
           <section
             ref={(el) => {
@@ -84,7 +84,12 @@ const List = ({ list }: ListProps) => {
             className='w-full flex-1 overflow-y-auto p-3  flex flex-col items-start gap-2 scrollable-vertical'
           >
             {list.cards.map((card, index) => (
-              <Draggable key={card.id} draggableId={card.id} index={index}>
+              <Draggable
+                key={card.id}
+                draggableId={card.id}
+                index={index}
+                isDragDisabled={true}
+              >
                 {(provided) => (
                   <div
                     ref={provided.innerRef}

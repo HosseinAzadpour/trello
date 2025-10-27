@@ -2,6 +2,7 @@
 import List from "@/components/List";
 import { Plus, X } from "lucide-react";
 import { useBoardLogic } from "@/hooks/useBoardLogic";
+import { useCardLogic } from "@/hooks/useCardLogic";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 export default function Board() {
   const {
@@ -14,14 +15,13 @@ export default function Board() {
     setNewListTitle,
     newList,
     setNewList,
-
     listRef,
     titleRef,
     scrollRef,
     onDragEnd,
     handleAddList,
   } = useBoardLogic();
-
+  const { showComments } = useCardLogic();
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <main
@@ -51,9 +51,7 @@ export default function Board() {
         <Droppable
           droppableId='board'
           type='LIST'
-          isDropDisabled={false}
-          isCombineEnabled={true}
-          ignoreContainerClipping={true}
+          isDropDisabled={!showComments}
           direction='horizontal'
         >
           {(provided) => (
@@ -63,7 +61,12 @@ export default function Board() {
               className='h-screen overflow-x-auto overflow-y-hidden whitespace-nowrap flex items-start justify-start gap-8'
             >
               {lists.map((list, index) => (
-                <Draggable key={list.id} draggableId={list.id} index={index}>
+                <Draggable
+                  key={list.id}
+                  draggableId={list.id}
+                  index={index}
+                  isDragDisabled={!showComments}
+                >
                   {(provided) => (
                     <div
                       ref={provided.innerRef}

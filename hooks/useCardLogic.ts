@@ -5,9 +5,9 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
 
 export const useCardLogic = (
-  listId: string,
-  cardId: string,
-  commentsLength: number
+  listId: string = "0",
+  cardId: string = "0",
+  commentsLength: number = 0
 ) => {
   // Zustand actions
   const addComment = useBoardStore((state) => state.addComment);

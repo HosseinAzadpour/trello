@@ -5,7 +5,7 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { useAutoScrollLastChild } from "@/hooks/useAutoScrollLastChild";
 
 export const useListLogic = (listId: string, cardsLength: number) => {
-  // Zustand actions (بهینه‌شده با selector)
+  // Zustand actions
   const updateListTitle = useBoardStore((s) => s.updateListTitle);
   const addCard = useBoardStore((s) => s.addCard);
   const removeList = useBoardStore((s) => s.removeList);
